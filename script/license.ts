@@ -18,9 +18,6 @@ const parent: any = JSON.parse(Fs.readFileSync(packagePath, 'utf8'));
 const appPackage: any = {
     name: parent.name,
     main: "index.js",
-    bin: {
-        version: "bin",
-    },
     version: parent.version,
     description: parent.description,
     repository: parent.repository,
