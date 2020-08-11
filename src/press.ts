@@ -25,7 +25,9 @@ export const getCharCodeByKeyboardKey = (key: KeyboardKey): number => {
     return NaN;
 };
 
-export const waitForKeyPress = (): Promise<boolean> => {
+export const waitForKeyPress = (option: WaitForKeyPressOption): Promise<boolean> => {
+
+    const cancelKeys: number[] = option.cancelKeys.map((each: KeyboardKey) => getCharCodeByKeyboardKey(each));
 
     process.stdin.setRawMode(true);
 
@@ -36,11 +38,12 @@ export const waitForKeyPress = (): Promise<boolean> => {
             const charCode: number = buffer.toString().charCodeAt(0);
             process.stdin.setRawMode(false);
 
-            if (charCode === escCharCode) {
+            if (cancelKeys.includes(charCode)) {
                 resolve(false);
-            } else {
-                resolve(true);
+                return;
             }
+
+            resolve(true);
         });
     });
 };
