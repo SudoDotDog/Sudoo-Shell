@@ -4,7 +4,26 @@
  * @description Press
  */
 
-const escCharCode: number = 27;
+export type KeyboardKey = 'escape';
+
+export type WaitForKeyPressOption = {
+
+    readonly cancelKeys: KeyboardKey[];
+};
+
+const KeyboardKeyMap: Record<KeyboardKey, number> = {
+
+    escape: 27,
+};
+
+export const getCharCodeByKeyboardKey = (key: KeyboardKey): number => {
+
+    if (KeyboardKeyMap[key]) {
+        return KeyboardKeyMap[key];
+    }
+
+    return NaN;
+};
 
 export const waitForKeyPress = (): Promise<boolean> => {
 
