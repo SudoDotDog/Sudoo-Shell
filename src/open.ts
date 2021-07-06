@@ -16,7 +16,7 @@ const getOpenCommand = (): string => {
     return 'open';
 };
 
-export const openFile = (file: string): Promise<void> => {
+export const shellOpenFile = (file: string): Promise<void> => {
 
     return new Promise<void>((resolve: () => void, reject: (reason: any) => void) => {
 

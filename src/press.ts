@@ -4,19 +4,19 @@
  * @description Press
  */
 
-export type KeyboardKey = 'escape';
+export type ShellKeyboardKey = 'escape';
 
-export type WaitForKeyPressOption = {
+export type ShellWaitForKeyPressOption = {
 
-    readonly cancelKeys: KeyboardKey[];
+    readonly cancelKeys: ShellKeyboardKey[];
 };
 
-const KeyboardKeyMap: Record<KeyboardKey, number> = {
+const KeyboardKeyMap: Record<ShellKeyboardKey, number> = {
 
     escape: 27,
 };
 
-export const getCharCodeByKeyboardKey = (key: KeyboardKey): number => {
+export const shellGetCharCodeByKeyboardKey = (key: ShellKeyboardKey): number => {
 
     if (KeyboardKeyMap[key]) {
         return KeyboardKeyMap[key];
@@ -25,9 +25,9 @@ export const getCharCodeByKeyboardKey = (key: KeyboardKey): number => {
     return NaN;
 };
 
-export const waitForKeyPress = (option: WaitForKeyPressOption): Promise<boolean> => {
+export const shellWaitForKeyPress = (option: ShellWaitForKeyPressOption): Promise<boolean> => {
 
-    const cancelKeys: number[] = option.cancelKeys.map((each: KeyboardKey) => getCharCodeByKeyboardKey(each));
+    const cancelKeys: number[] = option.cancelKeys.map((each: ShellKeyboardKey) => shellGetCharCodeByKeyboardKey(each));
 
     process.stdin.setRawMode(true);
 
