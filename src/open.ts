@@ -4,7 +4,7 @@
  * @description Open
  */
 
-import { exec } from "child_process";
+import { shellExecuteCommand } from "./execution";
 
 const getOpenCommand = (): string => {
 
@@ -16,19 +16,11 @@ const getOpenCommand = (): string => {
     return 'open';
 };
 
-export const shellOpenFile = (file: string): Promise<void> => {
+export const shellOpenFile = async (file: string): Promise<void> => {
 
-    return new Promise<void>((resolve: () => void, reject: (reason: any) => void) => {
+    const openCommand: string = getOpenCommand();
+    const parsedCommand: string = `${openCommand} ${file}`;
+    await shellExecuteCommand(parsedCommand);
 
-        const openCommand: string = getOpenCommand();
-        exec(`${openCommand} ${file}`, (error: any, stdout: string, stderr: string) => {
-
-            if (!error) {
-                resolve();
-                return;
-            }
-
-            reject(stderr);
-        });
-    });
+    return;
 };
